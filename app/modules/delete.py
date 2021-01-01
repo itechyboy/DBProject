@@ -1,4 +1,5 @@
-from app import FILE_PATH
+from app import FILE_PATH, TTL_LIST, del_index
+import time
 
 
 def del_key(key):
@@ -38,3 +39,11 @@ def del_key(key):
         new_file.write(nline)
     new_file.close()
     return "Key Deleted"
+
+
+def ttl_func():
+    trn = int(time.time())
+    if trn in TTL_LIST:
+        i = TTL_LIST.index(trn)
+        del_index(i)
+

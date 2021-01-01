@@ -1,5 +1,6 @@
-from app import FILE_PATH
+from app import FILE_PATH, TTL_LIST
 import json
+import time
 
 
 # Check if duplicate key exists
@@ -13,7 +14,9 @@ def dup_search(new_key):
 
 
 # Insert Key at data store file
-def key_insert(key, value):
+def key_insert(key, value, ttl):
+    ttl = int(time.time())+ttl
+    TTL_LIST.append(ttl)
     with open(FILE_PATH, 'a') as file:
-        file.write(f"{key}|{json.dumps(value)}")
+        file.write(f"{key}|{json.dumps(value)}|{ttl}")
         file.write("\n")
